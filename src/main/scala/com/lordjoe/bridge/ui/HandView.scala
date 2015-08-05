@@ -37,7 +37,9 @@ class SuitPile(suit: Suit, HandCards: List[Card]) extends BasicPile {
 
 class HandView(model: Hand) extends JComponent {
   setLayout(new BorderLayout())
-  add(new JLabel(buildLabelString),BorderLayout.NORTH)
+  private val label: JLabel = new JLabel(buildLabelString)
+  label.setFont(new Font("Courier New", Font.BOLD, 14));
+  add(label,BorderLayout.NORTH)
   add(new HandCardView(model),BorderLayout.CENTER)
   if(model.isDealer)  setBorder(BorderFactory.createLineBorder(Color.ORANGE,3) )
 
