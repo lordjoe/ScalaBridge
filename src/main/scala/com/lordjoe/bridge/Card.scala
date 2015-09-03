@@ -63,6 +63,18 @@ object Suit {
 
 }
 
+object ControlTexts {
+  sealed abstract class ControlTextBase
+
+  case class ControlText private[ControlTexts] (controlText: String,
+                                                toolTipText: String)
+          extends ControlTextBase
+
+  object OkButton     extends ControlText("OK", "Save changes and dismiss")
+  object CancelButton extends ControlText("Cancel", "Bail!")
+}
+
+
 sealed abstract class Rank(val shortName: String, val longName: String, val value: Int, val points: Int)
   extends Ordered[Rank] {
   override def toString = shortName

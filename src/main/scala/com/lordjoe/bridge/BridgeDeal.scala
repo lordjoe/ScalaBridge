@@ -9,6 +9,7 @@ package com.lordjoe.bridge
 import com.lordjoe.scala.CanAppend
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
+import scala.collection.breakOut
 
 // represents North,South,East,West
 sealed abstract class Position {
@@ -88,7 +89,7 @@ object Position {
  */
 sealed abstract class Vulnerability {
 
-  def isVulnerable(h: Hand): Boolean = isVulnerable(h.pos)
+  def isVulnerable(h: Hand): Boolean = isVulnerable(h.position)
 
   def isVulnerable(p: Position): Boolean;
 }
@@ -118,29 +119,27 @@ object Vulnerability {
 }
 
 
+object Hand {
+  def apply(pos: Position,deal : Deal, cards: List[Card]) = new Hand(pos,deal,cards)
+  def apply( deal : Deal, hand: Hand) = new Hand(hand.position,deal,hand.cards)
+}
+
 /**
  * represents a dealt hand
- * @param position  NSEW
+ * @param position   NSEW
  * @param cards   dealt cards
  */
-class Hand(position: Position, cards: List[Card]) extends CanAppend {
-  var deal: Deal = null
-  val hearts = ofSuit(Suit.Heart)
-  val spades = ofSuit(Suit.Spade)
-  val diamonds = ofSuit(Suit.Diamond)
-  val clubs = ofSuit(Suit.Spade)
+class Hand(val position: Position,deal : Deal, val cards: List[Card]) extends CanAppend {
+  val ofSuit: Map[Suit,List[Card]] = Suit.suits.map(s => (s,cards.filter(c => c.suit == s).sortBy(_.rank).reverse)).toMap
+// //  val byBuit: Map(Suit,List(Card))  = Suit.suits.map(f -> (f,))
+//  val hearts = ofSuit(Suit.Heart)
+//  val spades = ofSuit(Suit.Spade)
+//  val diamonds = ofSuit(Suit.Diamond)
+//  val clubs = ofSuit(Suit.Spade)
 
-  def setDeal(adeal: Deal) = {
-    deal  = adeal
-  }
+    def hcp: Int =  { cards.map(_.points).sum }
 
-  def hcp: Int = {
-    var total = 0;
-    cards.map(f => total += f.points)
-    return total
-  }
-
-  def isVulnerable = {
+    def isVulnerable = {
      if(deal == null)
        false
      deal.vulnerability.isVulnerable(this)
@@ -153,27 +152,12 @@ class Hand(position: Position, cards: List[Card]) extends CanAppend {
    }
 
 
-  def pos: Position = position
-
-  def ofSuit(testSuit: Suit): List[Card] = {
-    cards.filter {
-      c: Card => c.suit == testSuit
-    }
-  }
-
-
-  def distribution: Array[Int] = {
-    val holder: ArrayBuffer[Int] = new ArrayBuffer[Int]()
-    for (suit: Suit <- Suit.suits) {
-      holder += cardsInSuit(suit)
-    }
-    holder.toArray.sorted;
-  }
-
-
   def cardsInSuit(testSuit: Suit): Int = {
     ofSuit(testSuit).length
   }
+
+  def distribution: List[Int] = Suit.suits.map(s => cardsInSuit(s))
+
 
   def maxSuitLength: Int = {
     var maxLength = 0;
@@ -181,17 +165,9 @@ class Hand(position: Position, cards: List[Card]) extends CanAppend {
     return maxLength
   }
 
-  def maxMajorLength: Int = {
-    var maxLength = 0;
-    Suit.majors.foreach(suit => maxLength = Math.max(maxLength, ofSuit(suit).length))
-    return maxLength
-  }
+  def maxMajorLength: Int = Suit.majors.map(cardsInSuit).reduceLeft ( _ max _ )
 
-  def maxMinorLength: Int = {
-    var maxLength = 0;
-    Suit.minors.foreach(suit => maxLength = Math.max(maxLength, ofSuit(suit).length))
-    return maxLength
-  }
+  def maxMinorLength: Int = Suit.minors.map(cardsInSuit).reduceLeft ( _ max _ )
 
 
   def showSuit(suit: Suit, sb: Appendable) {
@@ -224,17 +200,18 @@ class Hand(position: Position, cards: List[Card]) extends CanAppend {
  * a brighe deal of four hands
  * @param dealer  position of the dealer
  * @param vul  vulnerability
- * @param hands   four hands
+ * @param ahands   four hands with deal unset
  */
-class Deal(dealer: Position,vul: Vulnerability, hands: Map[Position, Hand]) extends CanAppend {
+class Deal(dealer: Position,vul: Vulnerability, ahands: List[Hand]) extends CanAppend {
+  // rebuild ot add  the deal
+   val hands: Map[Position, Hand]  = ahands.map(f =>(f.position,Hand(this,f))).toMap
 
-  hands.values.map(f => f.setDeal(this)) // assign hands to this deal
   def handAt(position: Position): Hand = {
     hands(position)
   }
 
 
-  def partner(me: Hand): Hand = handAt(me.pos.partner)
+  def partner(me: Hand): Hand = handAt(me.position.partner)
 
   def declarerPosition: Position = dealer
 
@@ -253,6 +230,7 @@ class Deal(dealer: Position,vul: Vulnerability, hands: Map[Position, Hand]) exte
 
 
   def validateCardsInSuit(s: Suit) = {
+
     var total = 0;
     hands.values.map(f => total += f.cardsInSuit(s))
     if (total != 13)
@@ -321,26 +299,18 @@ object BridgeDealer {
     val dealer: Position = Position.random
     val vulnerability: Vulnerability = Vulnerability.random
     val positionToHand: collection.mutable.Map[Position, Hand] = scala.collection.mutable.Map[Position, Hand]()
-    var cards: List[Card] = Deck.shuffledCards;
+    val cards: List[Card] = Deck.shuffledCards;
     validate(cards)
 
-    var inShuffle: Int = 0;
-    for (pos <- Position.positions) {
-      var handCards: ArrayBuffer[Card] = new ArrayBuffer[Card]()
-      while (handCards.size < handSize) {
-        val dealt: Card = cards.head;
-        cards = cards.tail
-        handCards += dealt
-      }
-
-
-      positionToHand += (pos -> new Hand(pos, handCards.toList.sorted))
-    }
-    val dealt: Map[Position, Hand] = Map[Position, Hand](positionToHand.toSeq: _*) // convert to
-    val ret: Deal = new Deal(dealer,vulnerability, dealt)
+    val hands: List[Hand] = Position.positions.map(f => Hand(f,null,dealHand(cards,f)))
+    val ret: Deal = new Deal(dealer,vulnerability, hands)
 
     ret.validate
     return ret
+  }
+
+  def dealHand(cards: List[Card],pos: Position) : List[Card]  = {
+       cards.slice(13 * pos.asInt,13 * (1 + pos.asInt))
   }
 }
 

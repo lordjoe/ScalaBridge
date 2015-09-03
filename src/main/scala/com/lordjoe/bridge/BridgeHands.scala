@@ -1,5 +1,5 @@
 /*
- *  Copyright 2008 Juha Komulainen
+ *  Copyright 2015 Steve Lewis
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -12,12 +12,13 @@
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
+ *
+ *   com.lordjoe.bridge.Main
  */
-package solitarius
+package com.lordjoe.bridge
 
 import javax.swing._
 
-import com.lordjoe.bridge.{BridgeDealer, Deal}
 import solitarius.ui._
 
 object Main {
@@ -42,22 +43,23 @@ object Main {
 
   def menuBar =
     MenuBarBuilder.buildMenuBar { menuBar =>
-      menuBar.submenu("Game") { game =>
-        game.action("New Game") {
-          newGame(BridgeDealer.makeHands)
-        }
-        }
+      menuBar.button("New Game") {
+       game =>
+         game.action("New Game") {
+           newGame(BridgeDealer.makeHands)
+         }
+     }
       menuBar.submenu("Quit") { quit =>
         quit.action("Quit") {
-           System.exit(0)
-         }
-       }
-      menuBar.submenu("Help") { help =>
-         help.action("About Bridge Dealer") {
-           showAbout()
-         }
-       }
-     }
+          System.exit(0)
+        }
+      }
+         menuBar.submenu("Help") { help =>
+        help.action("About Bridge Dealer") {
+          showAbout()
+        }
+      }
+    }
 
   def showAbout() {
     val message =

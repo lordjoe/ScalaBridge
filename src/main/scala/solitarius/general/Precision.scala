@@ -10,7 +10,7 @@ import com.lordjoe.bridge.{Deal, Hand, Position}
 object Precision {
 
   def oneClubResponder(deal: Deal): Hand = {
-    deal.handAt(oneClubBidder(deal).pos.partner)
+    deal.handAt(oneClubBidder(deal).position.partner)
   }
 
   def oneClubBidder(deal: Deal): Hand = {

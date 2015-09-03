@@ -15,6 +15,6 @@
  */
 package solitarius
 
-import org.specs.runner.SpecsFileRunner
-
-object allSpecsRunner extends SpecsFileRunner("src/test/scala/**/*.scala", ".*")
+//import org.specs.runner.SpecsFileRunner
+//
+//object allSpecsRunner extends SpecsFileRunner("src/test/scala/**/*.scala", ".*")

@@ -48,10 +48,8 @@ class HandView(model: Hand) extends JComponent {
     Suit.suits.map(f => ret = ret + model.cardsInSuit(f) + "-")
     ret.substring(0,ret.length - 1)
   }
-  def buildLabelString: String = model.pos + " HCP=" + model.hcp + " Distribution " + distributionString
-
-
-}
+  def buildLabelString: String = model.position + " HCP=" + model.hcp + " Distribution " + distributionString
+ }
 
 
 
@@ -66,10 +64,10 @@ class HandCardView(model: Hand) extends JComponent {
   var currentDrag: Option[Drag] = None
 
   var suits: Array[SuitPile] = Array(
-    new SuitPile(Suit.Club,  model.ofSuit(Suit.Club)) ,
-    new SuitPile(Suit.Diamond, model.ofSuit(Suit.Diamond)),
-    new SuitPile(Suit.Heart, model.ofSuit(Suit.Heart)),
-    new SuitPile(Suit.Spade, model.ofSuit(Suit.Spade)))
+    new SuitPile(Suit.Club,  model.ofSuit(Suit.Spade)) ,
+    new SuitPile(Suit.Diamond, model.ofSuit(Suit.Heart)),
+    new SuitPile(Suit.Heart, model.ofSuit(Suit.Diamond)),
+    new SuitPile(Suit.Spade, model.ofSuit(Suit.Club)))
 
 
   addMouseListener(myMouseListener)

@@ -39,7 +39,7 @@ object MyMain {
      var positiveHands4441: ArrayBuffer[Deal] = new ArrayBuffer[Deal]()
      for (deal: Deal <- positiveHands) {
        val bidder: Hand = Precision.oneClubBidder(deal);
-       if (Position.isNorthSouth(bidder.pos)) {
+       if (Position.isNorthSouth(bidder.position)) {
          val responder: Hand = deal.partner(bidder)
          if (Distribution.is4441(responder)) {
            positiveHands4441 += deal

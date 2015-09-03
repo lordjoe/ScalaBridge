@@ -15,7 +15,7 @@
  */
 package solitarius.ui
 
-import javax.swing.{ AbstractAction, JMenu, JMenuBar }
+import javax.swing.{JButton, AbstractAction, JMenu, JMenuBar}
 import java.awt.event.ActionEvent
 
 object MenuBarBuilder {
@@ -35,6 +35,13 @@ class MenuBarBuilder {
     menuBar.add(menu)
     this
   }
+
+  def button(name: String) (callback: ButtonBuilder => Unit): this.type = {
+      val menu = new JButton(name)
+      callback(new ButtonBuilder(menu))
+      menuBar.add(menu)
+      this
+    }
 }
 
 class MenuBuilder(menu: JMenu) {
@@ -53,3 +60,15 @@ class MenuBuilder(menu: JMenu) {
     
   def separator() = menu.addSeparator()
 }
+
+
+class ButtonBuilder(menu: JButton) {
+  def action(name: String) (action: => Unit) {
+    menu.addActionListener(new AbstractAction(name) {
+      override def actionPerformed(e: ActionEvent) = action
+    })
+  }
+
+
+}
+

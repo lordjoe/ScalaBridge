@@ -37,7 +37,7 @@ object Distribution {
   }
 
   def is4441X(h: Hand): Boolean = {
-    val distribution1: Array[Int] = h.distribution
+    val distribution1: Array[Int] = h.distribution.toArray
      if (distribution1(0) != 4)
       return false
     if (distribution1(1) != 4)
@@ -50,7 +50,7 @@ object Distribution {
   }
 
   def is4441(h: Hand): Boolean = {
-    val distribution1: Array[Int] = h.distribution
+    val distribution1: Array[Int] = h.distribution.toArray
     arrayEqual(Array(1,4,4,4),distribution1)
   }
 
