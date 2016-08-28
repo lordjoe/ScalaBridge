@@ -139,17 +139,25 @@ class Hand(val position: Position,deal : Deal, val cards: List[Card]) extends Ca
 
     def hcp: Int =  { cards.map(_.points).sum }
 
-    def isVulnerable = {
+    def isVulnerable: Boolean = {
      if(deal == null)
        false
      deal.vulnerability.isVulnerable(this)
   }
 
-  def isDealer = {
+  def handDeal: Deal = deal
+
+  def isDealer: Boolean = {
       if(deal == null)
         false
       deal.declarer == this
    }
+
+  def nextBidder: Hand  = deal.handAt(position.next)
+
+  def partner: Hand  = deal.handAt(position.partner)
+
+  def previousBidder: Hand  = deal.handAt(position.next)
 
 
   def cardsInSuit(testSuit: Suit): Int = {
@@ -159,11 +167,9 @@ class Hand(val position: Position,deal : Deal, val cards: List[Card]) extends Ca
   def distribution: List[Int] = Suit.suits.map(s => cardsInSuit(s))
 
 
-  def maxSuitLength: Int = {
-    var maxLength = 0;
-    Suit.suits.foreach(suit => maxLength = Math.max(maxLength, ofSuit(suit).length))
-    return maxLength
-  }
+  def maxSuitLength: Int =  Suit.suits.map(cardsInSuit).reduceLeft ( _ max _ )
+
+  def minSuitLength: Int = Suit.suits.map(cardsInSuit).reduceLeft ( _ min _ )
 
   def maxMajorLength: Int = Suit.majors.map(cardsInSuit).reduceLeft ( _ max _ )
 
@@ -180,10 +186,18 @@ class Hand(val position: Position,deal : Deal, val cards: List[Card]) extends Ca
     }
   }
 
+  def distributionString : String = {
+      var ret : String = ""
+     Suit.suits.map(f => ret = ret +  cardsInSuit(f) + "-")
+     ret.substring(0,ret.length - 1)
+   }
+
+
   override def toString: String = {
     val sb: java.lang.StringBuffer = new java.lang.StringBuffer()
     sb.append("hcp=" + hcp + " ")
-    Suit.suits.foreach(suit => showSuit(suit, sb))
+    sb.append(distributionString+ " ")
+     Suit.suits.foreach(suit => showSuit(suit, sb))
     sb.toString
   }
 

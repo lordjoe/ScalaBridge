@@ -1,5 +1,6 @@
 package solitarius.general
 
+import com.lordjoe.bridge.sample.WillOpen
 import com.lordjoe.bridge.{Deal, Hand, Position}
 
 /**
@@ -8,6 +9,23 @@ import com.lordjoe.bridge.{Deal, Hand, Position}
  * Date: 7/12/2015
  */
 object Precision {
+
+  /**
+   * might return null
+   * @param deal
+   * @return
+   */
+  def opener(deal: Deal): Hand = {
+      def opener(deal: Deal,h:Hand): Hand =  {
+          if(WillOpen.isSatisfied(h)) h
+          else {
+            if(h.nextBidder == deal.declarer) null
+            else opener(deal,h.nextBidder)
+          }
+         }
+       opener(deal,deal.declarer)
+   }
+
 
   def oneClubResponder(deal: Deal): Hand = {
     deal.handAt(oneClubBidder(deal).position.partner)

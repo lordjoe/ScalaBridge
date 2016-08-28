@@ -43,12 +43,7 @@ class HandView(model: Hand) extends JComponent {
   add(new HandCardView(model),BorderLayout.CENTER)
   if(model.isDealer)  setBorder(BorderFactory.createLineBorder(Color.ORANGE,3) )
 
-  def distributionString : String = {
-     var ret : String = ""
-    Suit.suits.map(f => ret = ret + model.cardsInSuit(f) + "-")
-    ret.substring(0,ret.length - 1)
-  }
-  def buildLabelString: String = model.position + " HCP=" + model.hcp + " Distribution " + distributionString
+   def buildLabelString: String = model.position + " HCP=" + model.hcp + " Distribution " + model.distributionString
  }
 
 
