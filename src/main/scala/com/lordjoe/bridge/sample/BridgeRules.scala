@@ -38,12 +38,14 @@ object OpenTwoClubs extends HandSatisfies {
 object StrongNT extends HandSatisfies {
   override def isSatisfied(x: Hand): Boolean =   NoPreviousOpen.isSatisfied(x) &&
     !OpenInMajor.isSatisfied(x) &&  x.minSuitLength > 1 &&
+    isFlat.isSatisfied(x) &&
     x.maxMajorLength  < 5 &&  x.hcp >= 15 && x.hcp <= 18
 }
 
 object WeakNT extends HandSatisfies {
   override def isSatisfied(x: Hand): Boolean =   NoPreviousOpen.isSatisfied(x) &&
     !OpenInMajor.isSatisfied(x) &&  x.minSuitLength > 1 &&
+     isFlat.isSatisfied(x) &&
     x.maxMajorLength  < 5 &&  (
     (x.isVulnerable &&   x.hcp >= 11 && x.hcp <= 13)   ||
       (!x.isVulnerable &&   x.hcp >= 10 && x.hcp <= 13)
@@ -115,6 +117,7 @@ object CanPreempt extends HandSatisfies {
 
 object WillOpen extends HandSatisfies {
   override def isSatisfied(x: Hand): Boolean =
+    x.hcp >= 13 ||
     OrdinaryOpen.isSatisfied(x) ||
       CanPreempt.isSatisfied(x) ||
       CanOpen1Club.isSatisfied(x)

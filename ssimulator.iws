@@ -7,14 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="100d202b-001d-4e4f-a140-65d1147ef2e6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/com/lordjoe/bridge/sample/BridgeRules.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/com/lordjoe/bridge/sample/SampleGenerator.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/lordjoe/bridge/BridgeDeal.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/lordjoe/bridge/BridgeDeal.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/lordjoe/bridge/BridgeHands.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/lordjoe/bridge/BridgeHands.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/lordjoe/bridge/ui/HandView.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/lordjoe/bridge/ui/HandView.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/solitarius/general/Precision.scala" afterPath="$PROJECT_DIR$/src/main/scala/solitarius/general/Precision.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ssimulator.ipr" afterPath="$PROJECT_DIR$/ssimulator.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ssimulator.iws" afterPath="$PROJECT_DIR$/ssimulator.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/lordjoe/bridge/sample/BridgeRules.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/lordjoe/bridge/sample/BridgeRules.scala" />
     </list>
     <ignored path="ssimulator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,8 +64,8 @@
       <file leaf-file-name="BridgeRules.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/com/lordjoe/bridge/sample/BridgeRules.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="119" column="18" selection-start-line="119" selection-start-column="6" selection-end-line="119" selection-end-column="18" />
+            <state relative-caret-position="114">
+              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -273,8 +266,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="159" />
-    <option name="y" value="52" />
+    <option name="x" value="194" />
+    <option name="y" value="47" />
     <option name="width" value="1586" />
     <option name="height" value="1001" />
   </component>
@@ -1086,7 +1079,7 @@
     <option name="totallyTimeSpent" value="50540000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="159" y="52" width="1586" height="1001" extended-state="0" />
+    <frame x="194" y="47" width="1586" height="1001" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1109,7 +1102,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.39975992" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="2089" y="335" width="993" height="501" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.39975992" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1973" y="225" width="993" height="501" />
       <window_info id="Debug with VisualVM" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1133,7 +1126,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="30" />
+      <option name="time" value="31" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1566,8 +1559,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/lordjoe/bridge/sample/BridgeRules.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="119" column="18" selection-start-line="119" selection-start-column="6" selection-end-line="119" selection-end-column="18" />
+        <state relative-caret-position="114">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding />
         </state>
       </provider>
