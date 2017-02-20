@@ -74,19 +74,40 @@ object Main {
             newGame(SampleGenerator.findSatisfyingHand( StrongNT))
           }
       }
+      menuBar.button("Too Strong NT") {
+        game =>
+          game.action("Too Strong NT") {
+            newGame(SampleGenerator.findSatisfyingHand( TooStrongNT))
+          }
+      }
       menuBar.button("Weak NT") {
         game =>
           game.action("Weak NT") {
             newGame(SampleGenerator.findSatisfyingHand( WeakNT))
           }
       }
-      menuBar.submenu("Bid") { quit =>
+      menuBar.button("Slam?") {
+          game =>
+            game.action("Slam?") {
+              newGame(SampleGenerator.findSatisfyingHand( MaybeSlam))
+            }
+        }
+      menuBar.button("1 Club-> 2N") {
+          game =>
+            game.action("Slam?") {
+              newGame(SampleGenerator.findSatisfyingHand( OpenOneClubThenTwoNo))
+            }
+        }
+        menuBar.submenu("Bid") { quit =>
         quit.action("Interesting") {
           newGame(SampleGenerator.findSatisfyingHand(SampleGenerator.InterestingHand))
         }
-        quit.action("2 Clubs") {
-          newGame(SampleGenerator.findSatisfyingHand(OpenTwoClubs))
-        }
+          quit.action("2 Clubs") {
+            newGame(SampleGenerator.findSatisfyingHand(OpenTwoClubs))
+          }
+          quit.action("2 Clubs -> 2NT") {
+             newGame(SampleGenerator.findSatisfyingHand(OpenOneClubThenTwoNo))
+           }
         quit.action("1 Diamond") {
           newGame(SampleGenerator.findSatisfyingHand(OpenOneDiamonds))
         }
