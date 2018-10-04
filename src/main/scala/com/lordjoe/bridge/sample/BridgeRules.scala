@@ -30,20 +30,43 @@ object OpenInMajor extends HandSatisfies {
 }
 
 object OpenTwoClubs extends HandSatisfies {
-  override def isSatisfied(x: Hand): Boolean = OrdinaryOpen.isSatisfied(x) &&
+  override def isSatisfied(x: Hand): Boolean = x.hcp >=16 &&
     !OpenInMajor.isSatisfied(x) &&
     x.cardsInSuit(Suit.Club) >= 6
 }
 
+
+
+object OpenOneClubThenTwoNo extends HandSatisfies {
+  override def isSatisfied(x: Hand): Boolean =  NoPreviousOpen.isSatisfied(x) &&
+    CanOpen1Club.isSatisfied(x) && x.partner.hcp >= 14
+
+}
+
+
+object TooStrongNT extends HandSatisfies {
+  override def isSatisfied(x: Hand): Boolean =   NoPreviousOpen.isSatisfied(x) &&
+    isFlat.isSatisfied(x)     &&
+    !OpenInMajor.isSatisfied(x) &&  x.minSuitLength > 1 &&
+    x.maxMajorLength  < 5 &&  x.hcp > 17 && x.hcp < 20 // no 2nt opening
+}
+
 object StrongNT extends HandSatisfies {
   override def isSatisfied(x: Hand): Boolean =   NoPreviousOpen.isSatisfied(x) &&
+    isFlat.isSatisfied(x)     &&
     !OpenInMajor.isSatisfied(x) &&  x.minSuitLength > 1 &&
     isFlat.isSatisfied(x) &&
     x.maxMajorLength  < 5 &&  x.hcp >= 15 && x.hcp <= 18
 }
 
+object MaybeSlam extends HandSatisfies {
+  override def isSatisfied(x: Hand): Boolean =
+  (x.hcp + x.partner.hcp) >= 30
+}
+
 object WeakNT extends HandSatisfies {
   override def isSatisfied(x: Hand): Boolean =   NoPreviousOpen.isSatisfied(x) &&
+    isFlat.isSatisfied(x)     &&
     !OpenInMajor.isSatisfied(x) &&  x.minSuitLength > 1 &&
      isFlat.isSatisfied(x) &&
     x.maxMajorLength  < 5 &&  (
