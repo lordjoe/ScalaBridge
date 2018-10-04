@@ -15,7 +15,7 @@
  */
 package solitarius.rules
 
-import com.lordjoe.bridge.{Deck, Rank, Card}
+import com.lordjoe.java_bridge.{Deck, Rank, Card}
 import solitarius.general._
 import solitarius.general.{Waste, Utils, AlternateColorCascade}
 import Utils.arrayOf

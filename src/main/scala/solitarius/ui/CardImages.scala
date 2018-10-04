@@ -18,7 +18,7 @@ package solitarius.ui
 import java.awt.{ Image, Toolkit }
 import java.io.FileNotFoundException
 
-import com.lordjoe.bridge.{Deck, Rank, Card}
+import com.lordjoe.java_bridge.{Deck, Rank, Card}
 
 
 object CardImages {

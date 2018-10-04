@@ -16,7 +16,7 @@
 package solitarius.rules
 
 
-import com.lordjoe.bridge.{Deck, Card}
+import com.lordjoe.java_bridge.{Deck, Card}
 import solitarius.general._
 import Pile.dealToPiles
 import Utils.arrayOf

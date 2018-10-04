@@ -19,7 +19,7 @@ import java.awt.{ Color, Dimension, Graphics }
 import java.awt.event._
 import javax.swing.JComponent
 
-import com.lordjoe.bridge.Card
+import com.lordjoe.java_bridge.Card
 import solitarius.general.{ Pile, Sequence, Tableau, Utils }
 import Utils.sum
 

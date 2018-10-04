@@ -18,8 +18,8 @@ package solitarius.ui
 import java.awt.{Dimension, GridLayout}
 import javax.swing.JComponent
 
-import com.lordjoe.bridge.ui.{HandView, BlankRectangle}
-import com.lordjoe.bridge.{Deal, Position}
+import com.lordjoe.java_bridge.ui.{HandView, BlankRectangle}
+import com.lordjoe.java_bridge.{Deal, Position}
 import solitarius.general._
 
 class DealView(model: Deal) extends JComponent {

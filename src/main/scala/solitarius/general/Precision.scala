@@ -1,7 +1,7 @@
 package solitarius.general
 
-import com.lordjoe.bridge.sample.WillOpen
-import com.lordjoe.bridge.{Deal, Hand, Position}
+import com.lordjoe.java_bridge.sample.WillOpen
+import com.lordjoe.java_bridge.{Deal, Hand, Position}
 
 /**
  * solitarius.general.Precision 

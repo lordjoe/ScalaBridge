@@ -1,6 +1,6 @@
 package solitarius.general
 
-import com.lordjoe.bridge.{Suit, Hand}
+import com.lordjoe.java_bridge.{Suit, Hand}
 
 /**
  * solitarius.general.Distribution 

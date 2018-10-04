@@ -15,61 +15,72 @@
  */
 package solitarius
 
-import java.awt.event._
 import javax.swing._
+import solitarius.general.Tableau
+import solitarius.rules.{FreeCellTableau, KlondikeTableau, SpiderLevel, SpiderTableau}
+import solitarius.ui.{TableauView, _}
 
-import general.Tableau
-import rules.{ SpiderTableau, SpiderLevel, KlondikeTableau, FreeCellTableau }
-import ui.TableauView
-import ui._
+object SolitariusMain extends App {
 
-object SolitariusMain {
-  
   val frame = new JFrame("Solitarius")
-  
-  def main(args: Array[String]) {
+
+ // override def main(args: Array[String]) {
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName)
     frame.setJMenuBar(menuBar)
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
     frame.setSize(600, 400)
     frame.setLocationRelativeTo(null)
     frame.setVisible(true)
-  }
-  
+ // }
+
   def newGame(tableau: Tableau) {
     frame.getContentPane.removeAll()
     frame.getContentPane.add(new TableauView(tableau))
     frame.pack()
   }
-  
+
   def menuBar =
     MenuBarBuilder.buildMenuBar { menuBar =>
       menuBar.submenu("Game") { game =>
         game.submenu("New Game") { sub =>
-          sub.action("FreeCell") { newGame(new FreeCellTableau) }
+          sub.action("FreeCell") {
+            newGame(new FreeCellTableau)
+          }
           sub.separator
-          sub.action("Klondike") { newGame(new KlondikeTableau) }
+          sub.action("Klondike") {
+            newGame(new KlondikeTableau)
+          }
           sub.separator
-          sub.action("Spider - Easy")   { newGame(new SpiderTableau(SpiderLevel.Easy)) }
-          sub.action("Spider - Medium") { newGame(new SpiderTableau(SpiderLevel.Medium)) }
-          sub.action("Spider - Hard")   { newGame(new SpiderTableau(SpiderLevel.Hard)) }
+          sub.action("Spider - Easy") {
+            newGame(new SpiderTableau(SpiderLevel.Easy))
+          }
+          sub.action("Spider - Medium") {
+            newGame(new SpiderTableau(SpiderLevel.Medium))
+          }
+          sub.action("Spider - Hard") {
+            newGame(new SpiderTableau(SpiderLevel.Hard))
+          }
         }
         game.separator
-        game.action("Quit") { System.exit(0) }
+        game.action("Quit") {
+          System.exit(0)
+        }
       }
       menuBar.submenu("Help") { help =>
-        help.action("About Solitarius") { showAbout() }
+        help.action("About Solitarius") {
+          showAbout()
+        }
       }
     }
-      
+
   def showAbout() {
     val message =
-        "Solitarius 0.3\n" +
+      "Solitarius 0.3\n" +
         "\n" +
         "Copyright 2008 Juha Komulainen\n"
 
     JOptionPane.showMessageDialog(
-        frame, message, 
-        "About Solitarius", JOptionPane.INFORMATION_MESSAGE)
+      frame, message,
+      "About Solitarius", JOptionPane.INFORMATION_MESSAGE)
   }
 }

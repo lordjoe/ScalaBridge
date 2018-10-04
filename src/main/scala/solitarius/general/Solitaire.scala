@@ -15,7 +15,7 @@
  */
 package solitarius.general
 
-import com.lordjoe.bridge.{Rank, Card}
+import com.lordjoe.java_bridge.{Rank, Card}
 
 abstract class Pile {
   val showAsCascade: Boolean
