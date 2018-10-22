@@ -55,7 +55,7 @@ public class DoubleDummySolution {
 
 
     public int getTricks(Suit trump, Position declarer) {
-        int pos = declarer.asInt();
+        int pos = declarer.asIndex();
           return(getTricks(trump,pos));
 
     }

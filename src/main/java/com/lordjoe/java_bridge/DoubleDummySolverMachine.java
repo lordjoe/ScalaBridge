@@ -70,7 +70,7 @@ public class DoubleDummySolverMachine {
             Card c = hand.getCard(i);
             int sRank = c.suit().suitRank();
             int rank = c.value();
-            ret[sRank - 1] |= 1 <<  rank;
+            ret[4 - sRank] |= 1 <<  rank;
 
         }
         return ret;

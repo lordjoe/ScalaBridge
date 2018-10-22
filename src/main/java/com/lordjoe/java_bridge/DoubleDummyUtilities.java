@@ -65,7 +65,7 @@ public class DoubleDummyUtilities {
         if(cards.length != 4)  {
             throw new IllegalArgumentException("hands have 4 suits " + hand);
         }
-        List<Card> holding = new ArrayList<>();
+        List<Card> holding = new ArrayList<Card>();
         for (int i = 0; i < cards.length; i++) {
             String card = cards[i];
             Card[] cards1 = parsePNBCards(i, card);

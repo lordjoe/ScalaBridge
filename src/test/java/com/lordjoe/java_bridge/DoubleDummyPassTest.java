@@ -1,9 +1,12 @@
 package com.lordjoe.java_bridge;
 
+import com.rogerpf.aabridge.dds.ddTableDeal;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * com.lordjoe.java_bridge.DoubleDummyPassTest
@@ -32,17 +35,69 @@ public class DoubleDummyPassTest {
             1028 , //0x404)
     } ;
 
-    public static final String DEAL_STRING = "N:K5.K653.AJ2.K64 Q97.AQJ98.83.QT9 AJ8643.7.KQ7.A73 T2.T42.T9654.J85";
+
+
+    public static final String DEAL_STRING = "N:K5.K653.AJ2.K642 Q97.AQJ98.83.QT9 AJ8643.7.KQ7.A73 T2.T42.T9654.J85";
 
     @Test
     public void testValues() {
-        List<Hand> hands = new ArrayList<>();
+        List<Hand> hands = new ArrayList<Hand>();
         Hand[] handArray = DoubleDummyUtilities.parsePNBDeal(DEAL_STRING);
         for (int i = 0; i < handArray.length; i++) {
             Hand hand = handArray[i];
+            int spades = hand.cardsInSuit(Suit.spades());
+            int hearts = hand.cardsInSuit(Suit.hearts());
+            int diamonds = hand.cardsInSuit(Suit.diamonds());
+            int clubs = hand.cardsInSuit(Suit.clubs());
+
+            int actual = spades + hearts + diamonds + clubs;
+            if(actual != 13)
+                assertEquals( 13, actual) ;
             hands.add(hand);
         }
         Deal deal = Deal.fromJavaHandList(hands);
+        ddTableDeal.ByValue tableDl = DoubleDummySolverMachine.toDDDeal(deal);
+
+        for (int i = 0; i < answer.length; i++) {
+            if(answer[i] != tableDl.cards[i])
+                assertEquals( answer[i],tableDl.cards[i]) ;
+
+        }
+        DoubleDummySolution dds = new DoubleDummySolution(deal);
+        dds.analyzeDeal();
+
+        final int[] tricks = {
+                11,7,9,11,11,
+                2,6,4,2,2,
+                11,7,9,10,10,
+                2,6,4,2,2,
+
+        } ;
+
+        int index = 0;
+        for (int i = 0; i < handArray.length; i++) {
+            Position p = Position.fromInt(i);
+            for (int j = 0; j < 5; j++) {
+                int clubs = dds.getTricks(Suit.clubs(), i);
+                int NC =  tricks[i * 5];
+                assertEquals(NC, clubs) ;
+                assertEquals(  tricks[i * 5 + 1 ],dds.getTricks(Suit.diamonds(),i)) ;
+                assertEquals(  tricks[i * 5 + 2],dds.getTricks(Suit.hearts(),i)) ;
+                assertEquals(  tricks[i * 5 + 3],dds.getTricks(Suit.spades(),i)) ;
+                assertEquals(  tricks[i * 5 + 4],dds.getTricks(null,i)) ;
+            }
+            for (int j = 0; j < 5; j++) {
+                   int NC =  tricks[i * 5];
+                assertEquals(NC, dds.getTricks(Suit.clubs(),p)) ;
+                assertEquals(  tricks[i * 5 + 0 ],dds.getTricks(Suit.clubs(),p)) ;
+                assertEquals(  tricks[i * 5 + 1 ],dds.getTricks(Suit.diamonds(),p)) ;
+                assertEquals(  tricks[i * 5 + 2],dds.getTricks(Suit.hearts(),p)) ;
+                assertEquals(  tricks[i * 5 + 3],dds.getTricks(Suit.spades(),p)) ;
+                assertEquals(  tricks[i * 5 + 4],dds.getTricks(null,p)) ;
+            }
+
+        }
+
 
     }
 /*
